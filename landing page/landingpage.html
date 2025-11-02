@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sangguniang Kabataan - Brgy. Manggahan- Official Website</title>
+    <link rel="icon" href="SK.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1F3470',
+                        'accent-yellow': '#FFC72C',
+                        'neutral-gray': '#D9D9D9',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the app layout */
+        body {
+            font-family: 'Inter', 'sans-serif';
+            background-color: #f0f0f0;
+            overflow-x: hidden;
+        }
+        .page-content {
+            /* This controls which page is currently visible */
+            display: none;
+            min-height: calc(100vh - 80px);
+        }
+        .active-page {
+            display: block;
+        }
+        /* Custom style for the Home Page hero background image simulation */
+        #home .hero-bg {
+            /* Placeholder background image */
+            background-image: url(council.photo.png);
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* --- LOADING SCREEN STYLES (Engaging & Responsive) --- */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s ease-out;
+            pointer-events: none;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .loading-screen.visible {
+            opacity: 1;
+            pointer-events: all; 
+        }
+        /* Style for the large, faded Barangay seal background */
+        .loading-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Using the Barangay Manggahan seal (4.jpg) as a faded background */
+            background-image: url('uploaded:4.jpg-e3e8ab2f-8ce3-44ee-90c1-3f7bf841255a');
+            background-size: 70%; 
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.1;
+            filter: grayscale(100%);
+        }
+
+        /* Keyframes for the custom spinner rotation */
+        @keyframes spinner-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Keyframes for the seal pulse effect */
+        @keyframes seal-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); }
+            50% { transform: scale(1.05); box-shadow: 0 10px 15px -3px rgba(31, 52, 112, 0.5), 0 4px 6px -4px rgba(31, 52, 112, 0.5); }
+        }
+
+        /* Spinner Style */
+        .loading-spinner {
+            border: 4px solid rgba(31, 52, 112, 0.2);
+            border-top: 4px solid #FFC72C;
+            border-right: 4px solid #1F3470;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spinner-rotate 1s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+            margin-top: 1rem;
+        }
+
+        /* Seal Pulse Style Application */
+        .loading-seal {
+            animation: seal-pulse 3s ease-in-out infinite;
+        }
+
+        /* Responsive Skewed Accents (using percentages for relative sizing on mobile/tablet) */
+        .skewed-accent {
+            position: absolute;
+            width: 50vw;
+            height: 50vw;
+            max-width: 18rem;
+            max-height: 18rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="bg-neutral-gray min-h-screen flex flex-col">
+
+    <div id="loadingScreen" class="loading-screen visible">
+        <div class="loading-bg"></div>
+        <div class="skewed-accent top-0 right-0 bg-primary-blue transform skew-y-12 origin-top-right"></div>
+        <div class="skewed-accent top-0 right-0 bg-white transform skew-y-12 origin-top-right translate-x-1 translate-y-1 opacity-100 w-1/4 h-1/4 max-w-20 max-h-20"></div>
+        <div class="skewed-accent bottom-0 left-0 bg-primary-blue transform -skew-y-12 origin-bottom-left"></div>
+        <div class="skewed-accent bottom-0 left-0 bg-white transform -skew-y-12 origin-bottom-left -translate-x-1 translate-y-1 opacity-100 w-1/4 h-1/4 max-w-20 max-h-20"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-4 sm:h-8 bg-accent-yellow shadow-2xl"></div>
+        <div class="relative z-10 flex flex-col items-center p-8 rounded-xl">
+            <img src="SK.png" alt="Sangguniang Kabataan Seal" class="loading-seal w-24 h-24 sm:w-36 sm:h-36 rounded-full border-4 border-primary-blue shadow-lg mb-4">
+            <p class="text-xl sm:text-3xl font-extrabold text-primary-blue tracking-wider text-center">
+                Sangguniang Kabataan
+            </p>
+            <p class="text-xs sm:text-sm text-gray-600 mt-1 italic text-center">Official Youth Website</p>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <header class="bg-primary-blue shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex justify-between items-center">
+                <button onclick="navigate('home')" class="flex items-center space-x-2 focus:outline-none">
+                    <img src="SK.png" alt="Sangguniang Kabataan Seal" class="w-8 h-8 rounded-full border border-white p-[1px]">
+                    <span class="text-accent-yellow text-base sm:text-lg font-bold">SANGGUNIANG KABATAAN</span>
+                </button>
+
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <nav class="hidden sm:flex space-x-4">
+                        <button onclick="navigate('home'); closeMobileMenu();" class="text-white hover:text-accent-yellow transition duration-150 text-sm">Home Page</button>
+                        <button onclick="navigate('program'); closeMobileMenu();" class="text-white hover:text-accent-yellow transition duration-150 text-sm">Program</button>
+                        <button onclick="navigate('about'); closeMobileMenu();" class="text-white hover:text-accent-yellow transition duration-150 text-sm">About Us</button>
+                    </nav>
+                    
+                    <a href="https://www.google.com/maps/place/Brgy+Manggahan/@14.7245927,121.1429039,20z/data=!4m6!3m5!1s0x3397bb13d1581c23:0xc306fc9777ff81d1!8m2!3d14.7242501!4d121.1429039!16s%2Fg%2Fg%2F1tdwh0s2?entry=ttu&g_ep=EgoyMDI1MTAwNC4wIKXMDSoASAFQAw%3D%3D" 
+                        target="_blank" 
+                        class="flex items-center space-x-1 bg-accent-yellow text-primary-blue font-semibold py-1.5 px-2 sm:py-2 sm:px-3 rounded-full text-xs sm:text-sm hover:bg-yellow-400 transition duration-300 whitespace-nowrap shadow-md">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <span class="hidden sm:inline">Brgy Manggahan</span>
+                        <span class="inline sm:hidden">Map</span>
+                    </a>
+
+                    <button id="mobileMenuButton" class="sm:hidden p-2 rounded-md text-white hover:text-accent-yellow focus:outline-none" onclick="toggleMobileMenu()">
+                        <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobileMenu" class="sm:hidden pt-2 pb-4 space-y-2 hidden">
+                <button onclick="navigate('home'); closeMobileMenu();" class="block w-full text-left px-3 py-2 text-white hover:bg-blue-800 rounded-md font-medium">Home Page</button>
+                <button onclick="navigate('program'); closeMobileMenu();" class="block w-full text-left px-3 py-2 text-white hover:bg-blue-800 rounded-md font-medium">Program</button>
+                <button onclick="navigate('about'); closeMobileMenu();" class="block w-full text-left px-3 py-2 text-white hover:bg-blue-800 rounded-md font-medium">About Us</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <section id="home" class="page-content active-page bg-neutral-gray pt-6 sm:pt-10">
+            <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+                
+                <div class="hero-bg h-64 sm:h-96 rounded-xl shadow-2xl flex items-end p-4 sm:p-6 mb-8 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-black opacity-30 rounded-xl"></div> 
+                    <div class="relative z-10 w-full text-white">
+                        <h1 class="text-2xl sm:text-5xl font-extrabold mb-1 sm:mb-2 text-accent-yellow">SANGGUNIANG KABATAAN</h1>
+                        <p class="text-sm sm:text-xl font-semibold mb-3 sm:mb-4">"THE HOME OF THE PROGRESSIVE AND PREMIER SMART SANGGUNIANG KABATAAN"</p>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <img src="SK.png" alt="SK Seal" class="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-2 border-accent-yellow shadow-xl">
+                            <img src="brgy.manggahan.png" alt="Barangay Logo" class="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-2 border-white bg-primary-blue/30 shadow-xl">
+                            <button onclick="navigate('program'); closeMobileMenu();" class="bg-accent-yellow text-primary-blue font-bold py-2 px-4 sm:py-2 sm:px-6 rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 text-sm">
+                                View Programs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-xl flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
+                    <div class="md:w-1/3 flex justify-center">
+                        <img src="sk daniel.png" alt="SK Chairman" class="w-48 h-auto rounded-lg shadow-xl border-4 border-primary-blue object-cover object-left-top">
+                    </div>
+                    <div class="md:w-2/3 text-center md:text-left">
+                        <h2 class="text-xl sm:text-3xl font-bold text-primary-blue mb-2">SK Chairperson Daniel D.C. Mesias and the Sangguniang Kabataan Council are leading with integrity and commitment. This isn't just a new generation of youth, it's a trustworthy generation that delivers results.</h2>
+                        <p class="text-sm sm:text-xl italic text-gray-600 mb-4">(SK Chairperson and Council)</p>
+                        <hr class="border-accent-yellow mb-4">
+                        <p class="text-base sm:text-lg text-gray-700">A New Generation of Youth, Will Be Come a Trustworthy.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="program" class="page-content bg-neutral-gray pt-6 sm:pt-10">
+            <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-blue mb-6 sm:mb-8 border-b-4 border-accent-yellow pb-2">Our Programs</h1>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <div onclick="navigate('education'); closeMobileMenu();" class="program-card cursor-pointer rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]">
+                        <img src="educational/educ.png" alt="Education" class="w-full h-32 sm:h-40 object-cover rounded-t-xl">
+                        <div class="p-3 sm:p-4 bg-white rounded-b-xl">
+                            <p class="text-sm sm:text-lg font-bold text-primary-blue">Education and Leadership Development</p>
+                        </div>
+                    </div>
+                    
+                    <div onclick="navigate('health'); closeMobileMenu();" class="program-card cursor-pointer rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]">
+                        <img src="health and sports/sport head.png" alt="Health" class="w-full h-32 sm:h-40 object-cover rounded-t-xl">
+                        <div class="p-3 sm:p-4 bg-white rounded-b-xl">
+                            <p class="text-sm sm:text-lg font-bold text-primary-blue">Sport Activities and Active Lifestyle</p>
+                        </div>
+                    </div>
+
+                    <div onclick="navigate('environment'); closeMobileMenu();" class="program-card cursor-pointer rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]">
+                        <img src="community service/community service.png" alt="Environment" class="w-full h-32 sm:h-40 object-cover rounded-t-xl">
+                        <div class="p-3 sm:p-4 bg-white rounded-b-xl">
+                            <p class="text-sm sm:text-lg font-bold text-primary-blue">Environment and Community Service</p>
+                        </div>
+                    </div>
+
+                    <div onclick="navigate('art'); closeMobileMenu();" class="program-card cursor-pointer rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02]">
+                        <img src="social/social events.jpg" alt="Art" class="w-full h-32 sm:h-40 object-cover rounded-t-xl">
+                        <div class="p-3 sm:p-4 bg-white rounded-b-xl">
+                            <p class="text-sm sm:text-lg font-bold text-primary-blue">Art, Culture, and Social Events</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="page-content bg-neutral-gray pt-6 sm:pt-10">
+            <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-blue mb-6 sm:mb-8 border-b-4 border-accent-yellow pb-2">About Us</h1>
+                
+                <div class="flex flex-col lg:flex-row gap-6 sm:gap-8">
+                    
+                    <div class="lg:w-1/2 bg-white p-6 rounded-xl shadow-xl">
+                        <h2 class="text-xl sm:text-2xl font-bold text-primary-blue mb-4">SANGGUNIANG KABATAAN COUNCIL</h2>
+                        
+                        <div class="mb-6">
+                            <img src="sk.council.jpg" alt="The 7th Sangguniang Kabataan Council" class="w-full h-auto rounded-lg shadow-xl border-4 border-accent-yellow object-cover">
+                        </div>
+
+                        <h3 class="text-lg font-bold text-primary-blue mb-3">Council Members</h3>
+                        <ul class="text-sm space-y-1">
+                            <li class="font-bold text-primary-blue">SK CHAIRPERSON: DANIEL D.C. MESIAS</li>
+                            <li class="font-bold mt-2 text-primary-blue">SK SEC: ERICKA ROSE ANGELES</li>
+                            <li class="font-bold text-primary-blue">SK TREA: JAMEERE MANUEL</li>
+                            <li>SK KGD. JUDE ANGELES</li>
+                            <li>SK KGD. EMMANUEL ABANGAN</li>
+                            <li>SK KGD. SEAN CALVIN FANGON</li>
+                            <li>SK KGD. JEANNETTE CASTILLO</li>
+                            <li>SK KGD. SKY HERSHEY BELLEN</li>
+                            <li>SK KGD. CHARLIE MAE DOLLESIN</li>
+                            <li>SK KGD. IRISH EVANGELISTA</li>
+                        </ul>
+                        
+                        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 mt-6">
+                            <button onclick="navigate('program'); closeMobileMenu();" class="flex-grow bg-primary-blue text-white font-bold py-3 px-4 rounded-full hover:bg-blue-800 transition duration-300 text-sm">
+                                View Our Programs
+                            </button>
+                            <a href="https://www.google.com/maps/place/Brgy+Manggahan/@14.7245927,121.1429039,20z/data=!4m6!3m5!1s0x3397bb13d1581c23:0xc306fc9777ff81d1!8m2!3d14.7242501!4d121.1429039!16s%2Fg%2F1tdwh0s2?entry=ttu&g_ep=EgoyMDI1MTAwNC4wIKXMDSoASAFQAw%3D%3D" 
+                                target="_blank" 
+                                class="flex items-center justify-center space-x-2 flex-grow bg-accent-yellow text-primary-blue font-bold py-3 px-4 rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 text-sm">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <span>Find Us (Map)</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="lg:w-1/2 bg-white p-6 rounded-xl shadow-xl">
+                        <div class="bg-primary-blue text-white p-4 sm:p-6 rounded-lg">
+                            <h3 class="text-lg sm:text-xl font-bold text-accent-yellow mb-4 text-center">MISSION</h3>
+                            <p class="text-xs sm:text-sm leading-relaxed mb-6 border-b border-accent-yellow pb-4">
+                                <li>The Sangguniang Kabataan, a dynamic portion of our population and a vital sector, assumes a role in national development and governance to formulate strategies to lead, protect, support and enhance the social, political, economic, cultural, intellectual, moral, spiritual and physical development of the Filipino youth.</li>
+                                <li> The Sangguniang Kabataan also maintains the role of an active government partner in providing services that would uplift the general welfare of the youth guided by Pro-people and Pro-God values. </li> <br/> 
+                            </p>
+                            <h3 class="text-lg sm:text-xl font-bold text-accent-yellow mb-4 text-center">VISION</h3>
+                            <p class="text-xs sm:text-sm leading-relaxed mb-6 border-b border-accent-yellow pb-4"></p>
+                            <p class="text-xs sm:text-sm leading-relaxed">
+                                <li>The Sangguniang Kabataan envisions active, supportive and participative role in all government efforts, programs, projects and other youth organizations to achieve truly free, just, democratic, progressive, effective and most of all, God-abiding and morally upright sector in the Philippine society.</li>
+                                <li>The home of the progressive and premier smart Sangguniang Kabataan.</li>
+                            </p>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="education" class="page-content bg-neutral-gray pt-6 sm:pt-10">
+            <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-blue mb-6 sm:mb-8 border-b-4 border-accent-yellow pb-2">Education and Leadership Development</h1>
+                
+                <div class="bg-white p-4 sm:p-6 rounded-xl shadow-xl mb-8">
+                    <div class="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
+                        <div class="md:w-1/2 w-full">
+                            <img src="educational/educ.png" alt="Education Program Banner" class="w-full h-48 sm:h-64 object-cover rounded-lg shadow-lg border-4 border-accent-yellow">
+                        </div>
+                        
+                        <div class="md:w-1/2 w-full">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-primary-blue mb-3">Education and Leadership Development</h2>
+                            <p class="text-sm sm:text-lg text-gray-700 leading-relaxed">Tutoring/Study Sessions: organizing free peer-to-peer tutoring for kindergarten or elementary students, especially during exam periods. We also conduct workshops to hone leadership skills.</p>
+                            <button onclick="navigate('program'); closeMobileMenu();" class="mt-4 bg-accent-yellow text-primary-blue font-bold py-2 px-6 rounded-full hover:bg-yellow-400 transition duration-300 text-sm">
+                                Back to Programs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl sm:text-2xl font-bold text-primary-blue mb-4 sm:mb-6">Activity Photos</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <img src="educational/education photo 1.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="SK members tutoring elementary students">
+                    <img src="educational/education photo 2.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Youth attending a leadership workshop">
+                    <img src="educational/education photo 3.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="SK council giving out certificates">
+                    <img src="educational/education photo 4.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Group photo of students and SK staff">
+                </div>
+            </div>
+        </section>
+
+        <section id="health" class="page-content bg-neutral-gray pt-6 sm:pt-10">
+            <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-blue mb-6 sm:mb-8 border-b-4 border-accent-yellow pb-2">Sport Activities and Active Lifestyle</h1>
+                
+                <div class="bg-white p-4 sm:p-6 rounded-xl shadow-xl mb-8">
+                    <div class="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
+                        <div class="md:w-1/2 w-full">
+                            <img src="health and sports/sport.jpg" alt="Health Program Banner" class="w-full h-48 sm:h-64 object-cover rounded-lg shadow-lg border-4 border-accent-yellow">
+                        </div>
+                        
+                        <div class="md:w-1/2 w-full">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-primary-blue mb-3">Sport Activities and Active Lifestyle</h2>
+                            <p class="text-sm sm:text-lg text-gray-700 leading-relaxed">Promoting physical and mental wellness through regular sports tournaments, fitness challenges, and health awareness campaigns, ensuring a healthy lifestyle for all youth.</p>
+                            <button onclick="navigate('program'); closeMobileMenu();" class="mt-4 bg-accent-yellow text-primary-blue font-bold py-2 px-6 rounded-full hover:bg-yellow-400 transition duration-300 text-sm">
+                                Back to Programs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl sm:text-2xl font-bold text-primary-blue mb-4 sm:mb-6">Activity Photos</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <img src="health and sports/sport photo 1.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                    <img src="health and sports/sport photo 2.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                    <img src="health and sports/sport photo 3.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                    <img src="health and sports/sport photo 4.png" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                </div>
+            </div>
+        </section>
+
+        <section id="environment" class="page-content bg-neutral-gray pt-6 sm:pt-10">
+            <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-blue mb-6 sm:mb-8 border-b-4 border-accent-yellow pb-2">Environment and Community Service</h1>
+                
+                <div class="bg-white p-4 sm:p-6 rounded-xl shadow-xl mb-8">
+                    <div class="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
+                        <div class="md:w-1/2 w-full">
+                            <img src="community service/community service.png" alt="Environment Program Banner" class="w-full h-48 sm:h-64 object-cover rounded-lg shadow-lg border-4 border-accent-yellow">
+                        </div>
+                        
+                        <div class="md:w-1/2 w-full">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-primary-blue mb-3">Environment and Community Service</h2>
+                            <p class="text-sm sm:text-lg text-gray-700 leading-relaxed">Organizing clean-up drives, tree planting activities, and recycling programs to instill environmental responsibility and community spirit among the youth.</p>
+                            <button onclick="navigate('program'); closeMobileMenu();" class="mt-4 bg-accent-yellow text-primary-blue font-bold py-2 px-6 rounded-full hover:bg-yellow-400 transition duration-300 text-sm">
+                                Back to Programs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl sm:text-2xl font-bold text-primary-blue mb-4 sm:mb-6">Activity Photos</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <img src="community service/community service photo 1.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                    <img src="community service/community service photo 2.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                    <img src="community service/community service photo 3.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                    <img src="community service/community service photo 4.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                </div>
+            </div>
+        </section>
+
+        <section id="art" class="page-content bg-neutral-gray pt-6 sm:pt-10">
+            <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-primary-blue mb-6 sm:mb-8 border-b-4 border-accent-yellow pb-2">Art, Culture, and Social Events</h1>
+                
+                <div class="bg-white p-4 sm:p-6 rounded-xl shadow-xl mb-8">
+                    <div class="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
+                        <div class="md:w-1/2 w-full">
+                            <img src="social/social events.jpg" alt="Art Program Banner" class="w-full h-48 sm:h-64 object-cover rounded-lg shadow-lg border-4 border-accent-yellow">
+                        </div>
+                        
+                        <div class="md:w-1/2 w-full">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-primary-blue mb-3">Art, Culture, and Social Events</h2>
+                            <p class="text-sm sm:text-lg text-gray-700 leading-relaxed">Showcasing local talent through cultural presentations, art competitions, and organizing social events to foster camaraderie and appreciation for arts and heritage.</p>
+                            <button onclick="navigate('program'); closeMobileMenu();" class="mt-4 bg-accent-yellow text-primary-blue font-bold py-2 px-6 rounded-full hover:bg-yellow-400 transition duration-300 text-sm">
+                                Back to Programs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl sm:text-2xl font-bold text-primary-blue mb-4 sm:mb-6">Activity Photos</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <img src="social/social events photo 1.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                    <img src="social/social events photo 2.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                    <img src="social/social events photo 3.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                    <img src="social/social events photo 4.jpg" class="w-full h-auto object-cover rounded-lg shadow-md hover:scale-[1.02] transition duration-300" alt="Activity Photo">
+                </div>
+            </div>
+        </section>
+
+        </main>
+
+    <footer class="bg-primary-blue text-white mt-auto">
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
+            <p class="text-xs sm:text-sm text-center">© 2025 Sangguniang Kabataan - Brgy. Manggahan, Montalban, Rizal.All rights reserved.</p>
+            <div class="flex space-x-4 sm:space-x-6 items-center">
+                <a href="https://www.facebook.com/profile.php?id=61571607473571&rdid=cMWqC3Z1TSiXkQJD&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1ADMc6Ch1C%2F" target="_blank" class="flex items-center space-x-2 text-accent-yellow hover:text-white transition duration-150 text-sm">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.016 3.655 9.172 8.44 9.947v-7.014H8.058V12h2.382V9.82c0-2.364 1.443-3.65 3.543-3.65.694 0 1.396.123 1.396.123v2.449h-1.24c-1.157 0-1.528.718-1.528 1.458V12h2.77l-.443 2.933h-2.327v7.014C18.345 21.172 22 17.016 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                    <span class="hidden sm:inline">Facebook Page</span>
+                </a>
+            
+               </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        // --- Global Navigation State ---
+        let currentPage = 'home';
+        const loadingScreen = document.getElementById('loadingScreen');
+
+        // --- Navigation Logic ---
+        function navigate(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active-page');
+            });
+
+            // Show the requested page
+            const nextPage = document.getElementById(pageId);
+            if (nextPage) {
+                nextPage.classList.add('active-page');
+                currentPage = pageId; // Update current page state
+                window.scrollTo(0, 0); // Scroll to the top of the new page
+            }
+        }
+
+
+        // --- Mobile Menu Functions ---
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        }
+
+        function closeMobileMenu() {
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            }
+        }
+        
+        // --- Initialization on DOM Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Ensure only the home page is active on load
+            navigate('home');
+            
+            // 2. Hide the loading screen
+            // Use a slight delay for a smoother visual transition
+            setTimeout(() => {
+                loadingScreen.classList.remove('visible');
+            }, 300); 
+        });
+    </script>
+
+</body>
+</html>
